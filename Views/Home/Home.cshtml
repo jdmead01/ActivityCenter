@@ -1,0 +1,88 @@
+@using ActivityCenter.Controllers
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" href="~/css/site.css">
+
+<div id="nav">
+    <h1>Dojo Activity Center</h1>
+    <h5>Welcome, @ViewBag.user.FirstName</h5>
+    <a href="/Home">Home</a>
+    <a href="/logout">Log Off</a>
+</div>
+
+<p>@ViewBag.AlreadyRSVP</p>
+<p>@ViewBag.Conflictingtimes</p>
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th scope="col">Activity</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Event Coordinator</th>
+            <th scope="col">Number of Participants</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @{
+        foreach (var activity in @ViewBag.AA)
+        {
+        // var month = @activity.Date.getMonth;
+        // var date = @activity.Date.getDate;
+        // var year = @activity.Date.getFullYear;
+        <tr>
+            <td> <a href="/activity/@activity.ActivityId">@activity.Title</a></td>
+            <td> @activity.Date.ToString("MM/dd") at @activity.Time</td>
+            <td> @activity.Duration @activity.Units</td>
+            <td>@activity.Creator.FirstName</td>
+            <td>@activity.Guests.Count</td>
+            <td>
+                @if (@ViewBag.Id == @activity.CreatorId)
+                {
+                <form asp-action="Delete" asp-controller="Home" method="POST"> <input type="hidden" name="actId"
+                        value='@activity.ActivityId'> <input type="submit" value="Delete"></form>
+                }
+                else
+                {
+                if (@activity.Guests.Count ==0){
+                <form asp-action="Join" asp-controller="Home" method="POST"> <input type="hidden" name="actId"
+                        value='@activity.ActivityId'> <input type="submit" value="Join"></form>
+                }
+                else{
+                var gcount =0;
+                foreach (var guest in @activity.Guests)
+                {
+                @if (@guest.UserId == @ViewBag.Id)
+                {
+                <form asp-action="Leave" asp-controller="Home" method="POST"> <input type="hidden" name="actId"
+                        value='@activity.ActivityId'> <input type="submit" value="Leave"></form>
+                break;
+                }
+
+                else
+                {
+                if (gcount == @activity.Guests.Count-1){
+                <form asp-action="Join" asp-controller="Home" method="POST"> <input type="hidden" name="actId"
+                        value='@activity.ActivityId'> <input type="submit" value="Join"></form>
+                }
+                else{
+                gcount++;
+                }
+                }
+                }
+                }
+                }
+            </td>
+        </tr>
+        }
+        }
+
+    </tbody>
+</table>
+
+<button class="btn-lg"><a href="/AddActivity">Add a New Activity</a></button>

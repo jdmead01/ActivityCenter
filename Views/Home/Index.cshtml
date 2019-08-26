@@ -1,0 +1,184 @@
+﻿@model User
+<link rel="stylesheet" href="~/css/site.css">
+<!-- <h1 style="align-content: center;">Welcome to Dojo Activity Center</h1> -->
+
+<div class="jumbotron">
+        <h1 class="display-8">Welcome to Dojo Activity Center</h1>
+        <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for
+                        calling extra attention to featured content or information.</p> -->
+        <hr class="my-2">
+        <div class="regForm col-6" style="border: 2px solid black; display: inline-block;">
+                <form asp-action="RegisterUser" asp-controller="Home" method="post">
+                    <h2>Register a New User</h2>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">First Name:</label>
+                        <p class="error" style="color: red">@ViewBag.FName</p>
+                        <span asp-validation-for="FirstName" style="color: red;"></span>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Please Enter Your Name"
+                            asp-for="FirstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Last Name:</label>
+                        <p class="error" style="color: red">@ViewBag.LName</p>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Please Enter Your Last Name"
+                            asp-for="LastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Email:</label>
+                        <p class="error" style="color: red">@ViewBag.ExistingUser</p>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Please Enter a Valid Email"
+                            asp-for="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Password:</label>
+                        <p class="error" style="color: red">@ViewBag.Password</p>
+                        <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Please Enter a Valid Password"
+                            asp-for="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Confirm Password:</label>
+                        <p class="error" style="color: red">@ViewBag.PConfirm</p>
+                        <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Confirm Password"
+                            asp-for="PasswordConfirmation">
+                    </div>
+                    <input class="submit btn btn-primary" type="submit" value="Register">
+                </form>
+            </div>
+            <div class="vl" style="border-left: 6px solid green; height: 500px; display: inline-block"></div>
+
+            <div class="logForm col-4" style="display: inline-block;">
+                    <form asp-action="LoginUser" asp-controller="Home" method="post">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Email:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                                asp-for="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Password:</label>
+                            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                                asp-for="Password">
+                        </div>
+                        <input class="submit btn btn-success" type="submit" value="Login">
+                    </form>
+                    <p class="error">@ViewBag.Login</p>
+                    <p class="error">@ViewBag.NoUser</p>
+                    <p class="error">@ViewBag.BadInfo</p>
+                </div>
+      </div>
+
+
+
+
+
+
+
+
+<!-- <div class="regForm col-6" style="border: 2px solid black; display: inline-block;">
+    <form asp-action="RegisterUser" asp-controller="Home" method="post">
+        <h2>Register a New User</h2>
+        <div class="form-group">
+            <label for="formGroupExampleInput">First Name:</label>
+            <p class="error" style="color: red">@ViewBag.FName</p>
+            <span asp-validation-for="FirstName" style="color: red;"></span>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input"
+                asp-for="FirstName">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Last Name:</label>
+            <p class="error" style="color: red">@ViewBag.LName</p>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                asp-for="LastName">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Email:</label>
+            <p class="error" style="color: red">@ViewBag.ExistingUser</p>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                asp-for="Email">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Password:</label>
+            <p class="error" style="color: red">@ViewBag.Password</p>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                asp-for="Password">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Confirm Password:</label>
+            <p class="error" style="color: red">@ViewBag.PConfirm</p>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                asp-for="PasswordConfirmation">
+        </div>
+        <input class="submit btn btn-primary" type="submit" value="Register">
+    </form>
+</div> -->
+
+
+<!-- 
+<div class="logForm col-4" style="display: inline-block;">
+    <form asp-action="LoginUser" asp-controller="Home" method="post">
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Email:</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                asp-for="Email">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Password:</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+                asp-for="Password">
+        </div>
+        <input class="submit btn btn-success" type="submit" value="Login">
+    </form>
+    <p class="error">@ViewBag.Login</p>
+    <p class="error">@ViewBag.NoUser</p>
+    <p class="error">@ViewBag.BadInfo</p>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="main">
+    <div id="Login">
+        <h3>Login an Existing User</h3>
+        <form asp-action="LoginUser" asp-controller="Home" method="post">
+            <p>Email <input type="email" name="Email"></p>
+            <p>Password <input type="password" name="Password"></p>
+            <input class="submit" type="submit" value="Login">
+
+        </form> -->
+
+</div>
+
+
+
+<!-- <div id="Reg">
+        <h3>Register a New User</h3>
+        <form asp-action="RegisterUser" asp-controller="Home" method="post">
+
+            <p>First Name <input type="text" asp-for="FirstName"></p>
+            <span asp-validation-for="FirstName"></span>
+
+            <p>Last Name <input type="text" asp-for="LastName"></p>
+            <span asp-validation-for="LastName"></span>
+
+            <p>Email <input type="email" asp-for="Email"></p>
+            <span asp-validation-for="Email"></span>
+
+            <p>Password <input type="password" asp-for="Password"></p>
+            <span asp-validation-for="Password"></span>
+
+
+            <p>Confirm Password <input type="password" asp-for="PasswordConfirmation"></p>
+            <span asp-validation-for="PasswordConfirmation"></span>
+
+            <input class="submit btn btn-primary" type="submit" value="Register">
+
+
+        </form> -->

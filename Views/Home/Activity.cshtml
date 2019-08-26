@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="~/css/site.css">
+
+<div id="nav">
+    <h1>Dojo Activity Center</h1>
+    <a href="/Home">Home</a>
+    <a href="/logout">Log Off</a>
+</div>
+<h1>@ViewBag.activity.Title</h1>
+@{
+    @if (@ViewBag.Id == @ViewBag.activity.CreatorId)
+                {
+                    <form asp-action="Delete" asp-controller="Home" method="POST"> <input type="hidden" name="actId" value='@ViewBag.activity.ActivityId'> <input type="submit" value="Delete"></form>
+                }
+                else
+                {
+                    if (@ViewBag.activity.Guests.Count ==0){
+                            <form asp-action="Join" asp-controller="Home" method="POST"> <input type="hidden" name="actId" value='@ViewBag.activity.ActivityId'> <input type="submit" value="Join"></form>
+                        }
+                    else{
+                        var gcount =0;
+                            foreach (var guest in @ViewBag.activity.Guests)
+                            {
+                                @if (@guest.UserId == @ViewBag.Id)
+                                {
+                                    <form asp-action="Leave" asp-controller="Home" method="POST">  <input type="hidden" name="actId" value='@ViewBag.activity.ActivityId'> <input type="submit" value="Leave"></form>
+                                    break;
+                                }
+                                
+                                else 
+                                {
+                                    if (gcount == @ViewBag.activity.Guests.Count-1){
+                                    <form asp-action="Join" asp-controller="Home" method="POST"> <input type="hidden" name="actId" value='@ViewBag.activity.ActivityId'> <input type="submit" value="Join"></form>
+                                    }
+                                    else{
+                                        gcount++;
+                                    }
+                                }
+                            }
+                        }
+                }
+}
+<h4>Event Coordinator: @ViewBag.activity.Creator.FirstName</h4>
+<p>@ViewBag.activity.Description</p>
+<h4>Participants</h4>
+<ul>
+    @{
+        foreach (var item in @ViewBag.Guests){
+            foreach (var part in @item.Guests){
+                <li>@part.User.FirstName</li>
+            }
+        }
+    }
+</ul>
